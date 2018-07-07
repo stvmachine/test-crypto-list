@@ -13,11 +13,6 @@ const Header = () => (
 Home
             </Link>
           </li>
-          <li>
-            <Link to="/detail">
-Detail
-            </Link>
-          </li>
         </ul>
       </div>
     </Toolbar>

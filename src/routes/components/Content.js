@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import withRoot from '../../withRoot';
 import Home from './Home';
 import Detail from './Detail';
@@ -22,8 +22,11 @@ const styles = theme => ({
 
 const Content = ({ classes }) => (
   <div className={classes.content}>
-    <Route path="/" exact component={Home} />
-    <Route path="/detail" component={Detail} />
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/detail" component={Detail} />
+      <Redirect to="/" />
+    </Switch>
   </div>
 );
 
