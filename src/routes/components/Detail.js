@@ -1,15 +1,45 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { getTicker } from '../../api';
 
-const DetailContent = ({ match: { params } }) => {
-  const { id } = params;
-  return (
-    <h2>
-      {id}
-    </h2>
-  );
-};
+class DetailContent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    this.state = {
+      ticker: {},
+      idTicker: id,
+    };
+  }
+
+  componentDidMount() {
+    const { idTicker } = this.state;
+    getTicker(idTicker).then((ticker) => {
+      this.setState({ ticker });
+    });
+  }
+
+  render() {
+    const { idTicker, ticker } = this.state;
+    return (
+      <div>
+        <h2>
+          {idTicker}
+        </h2>
+        <div>
+          {ticker.bid}
+        </div>
+      </div>
+    );
+  }
+}
 
 const Detail = ({ match }) => (
   <div>
