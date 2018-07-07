@@ -5,5 +5,6 @@ module.exports = {
   },
   globals: {
     document: 1,
+    window: true,
   },
 };
