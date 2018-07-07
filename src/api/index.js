@@ -10,17 +10,27 @@ export function getStatus() {
 
 /* -------------------------Status-------------------------------------*/
 export function getSymbols() {
-  return axios.get(`${baseURL}/v1/symbols`);
+  return axios.get(`${baseURL}/v1/symbols`).then(response => response.data);
 }
 
 /* ------------------------Tickers-------------------------------------*/
+export function getTicker(symbol) {
+  return axios
+    .get(`${baseURL}/v1/ticker/${symbol}`)
+    .then(response => response.data)
+    .catch((error) => {
+      console.log(error);
+      return [];
+    });
+}
+
 export function getTickers(symbols) {
   const params = {
-    symbols,
+    symbols: [...symbols],
   };
 
   return axios
-    .get(`${baseURL}/v2/tickers`, {
+    .get(`${baseURL}/v1/tickers`, {
       params,
       // to process array of params
       paramsSerializer: (p) => {

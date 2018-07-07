@@ -1,0 +1,3 @@
+/* FETCHING ACTIONS */
+export const LOAD_SYMBOLS = 'LOAD_SYMBOLS';
+export const LOAD_TICKERS = 'LOAD_TICKERS';

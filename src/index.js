@@ -1,21 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
-
-const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
-});
+import configureStore from './configApp';
 
 const App = () => (
-  <ApolloProvider client={client}>
-    <BrowserRouter>
+  <Provider store={configureStore()}>
+    <Router history={createBrowserHistory()}>
       <Routes />
-    </BrowserRouter>
-  </ApolloProvider>
+    </Router>
+  </Provider>
 );
 
 ReactDOM.render(<App />, document.querySelector('#root'));
