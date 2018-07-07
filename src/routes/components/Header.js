@@ -1,11 +1,25 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { Link } from 'react-router-dom';
 
 const Header = () => (
   <AppBar position="static" color="default">
     <Toolbar>
-Menu
+      <div className="menu">
+        <ul>
+          <li>
+            <Link to="/">
+Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/detail">
+Detail
+            </Link>
+          </li>
+        </ul>
+      </div>
     </Toolbar>
   </AppBar>
 );
