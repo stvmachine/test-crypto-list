@@ -31,7 +31,7 @@ const Content = ({ classes }) => (
 );
 
 Content.propTypes = {
-  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  classes: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
 };
 
 export default withRoot(withStyles(styles)(Content));

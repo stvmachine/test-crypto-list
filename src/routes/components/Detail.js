@@ -50,12 +50,16 @@ const Detail = ({ match }) => (
   </div>
 );
 
-Detail.propTypes = {
-  match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+const expectedPropType = {
+  match: PropTypes.shape({
+    url: PropTypes.string,
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
-DetailContent.propTypes = {
-  match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-};
+Detail.propTypes = expectedPropType;
+DetailContent.propTypes = expectedPropType;
 
 export default Detail;
