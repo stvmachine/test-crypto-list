@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
 import Routes from './routes';
+import { store, history } from './configApp';
 import registerServiceWorker from './registerServiceWorker';
-import configureStore from './configApp';
 
 const App = () => (
-  <Provider store={configureStore()}>
-    <Router history={createBrowserHistory()}>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
       <Routes />
-    </Router>
+    </ConnectedRouter>
   </Provider>
 );
 
