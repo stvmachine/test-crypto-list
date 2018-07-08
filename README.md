@@ -13,8 +13,7 @@ See the screenshots at the end of this document to see the results.
 yarn install
 yarn start
 ```
-3. Allow CORS
-We are calling an external API and the app receives CORS error. To fix this and run the project correctly, please try on a browser with an extension that allows CORS (e.g.: Google Chrome). 
+3. Allow CORS: We are calling an external API and the app receives CORS error. To fix this and run the project correctly, please try on a browser with an extension that allows CORS (e.g.: Google Chrome). 
 
 
 
@@ -24,7 +23,7 @@ brew install watchman
 yarn test
 ```
 
-### Some problems I had and comments:
+### Some problems that I had and comments:
 1. react-router (v4) 
 This is the latest version of react-router and well is different. The routes are no more static and the routing is created when the app is rendering. Well, is easier than before but I got problems at the beginning when I tried to connect with redux. 
  
