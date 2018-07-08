@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { getTickers } from '../../api';
 import { loadTickers } from '../../actions';
+import APPCONFIG from '../../constants/Config';
 
 const styles = {
   root: {
@@ -27,15 +28,16 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      tickers: [],
+      tickers: {},
     };
   }
 
   componentWillMount() {
     const { tickers, _loadTickers } = this.props;
-    if (tickers.length === 0) {
+    if (APPCONFIG.resetFetchedData) {
       getTickers().then((incomingTickers) => {
         this.setState({ tickers: incomingTickers });
+        console.log(incomingTickers);
         _loadTickers(incomingTickers);
       });
     } else {
@@ -44,9 +46,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const { tickers } = this.state;
+    const {
+      tickers: { USD },
+    } = this.state;
+    console.log(USD);
     const { classes } = this.props;
-    return tickers.length ? (
+    return USD && USD.length ? (
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
@@ -62,11 +67,11 @@ Coin
             </TableRow>
           </TableHead>
           <TableBody>
-            {tickers.map(n => (
+            {USD.map(n => (
               <TableRow key={n.pair}>
                 <TableCell component="th" scope="row">
                   <Link to={`detail/${n.pair}`}>
-                    {n.pair}
+                    {n.nameCoin || n.pair}
                   </Link>
                 </TableCell>
                 <TableCell numeric>
@@ -119,9 +124,18 @@ const tickerPropType = PropTypes.shape({
   pair: PropTypes.string,
 });
 
+const tabsCurrencies = PropTypes.shape({
+  USD: PropTypes.arrayOf(tickerPropType),
+  EUR: PropTypes.arrayOf(tickerPropType),
+  GBP: PropTypes.arrayOf(tickerPropType),
+  JPY: PropTypes.arrayOf(tickerPropType),
+  BTC: PropTypes.arrayOf(tickerPropType),
+  ETH: PropTypes.arrayOf(tickerPropType),
+});
+
 Home.propTypes = {
   _loadTickers: PropTypes.func.isRequired,
-  tickers: PropTypes.arrayOf(tickerPropType).isRequired,
+  tickers: tabsCurrencies.isRequired,
   classes: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
 };
 

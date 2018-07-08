@@ -1,5 +1,6 @@
 import axios from 'axios';
 // import { isNaN, mapValues } from 'lodash';
+import APPCONFIG from '../constants/Config';
 
 const baseURL = 'https://api.bitfinex.com';
 
@@ -33,8 +34,23 @@ export function getTickers() {
     .get(`${baseURL}/v1/tickers`)
     .then((response) => {
       const { data } = response;
-      // data = data.map(ticker => mapValues(ticker, elem => (isNaN(parseFloat(elem)) ? elem : parseFloat(elem))));
-      return data;
+      const output = {};
+
+      // We know the currencies, so we need to map the pairs with that.
+      // The hint we have is the format of the pairs is NAME_COIN+CURRENCY e.g. (ETHUSD).
+      // So we need to look for a regex that match that condition "CURRENCY$"
+      APPCONFIG.currencies.forEach((c) => {
+        const value = data.filter(ticker => ticker.pair.match(`${c}$`)).map((ticker) => {
+          const item = Object.assign({}, ticker);
+          const regexExpression = `${c}$`;
+          const regex = new RegExp(regexExpression, 'i');
+          item.nameCoin = item.pair.replace(regex, '');
+          return item;
+        });
+        output[c] = value;
+      });
+
+      return output;
     })
     .catch((error) => {
       console.log(error);
