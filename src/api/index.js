@@ -1,5 +1,5 @@
 import axios from 'axios';
-import qs from 'qs';
+// import { isNaN, mapValues } from 'lodash';
 
 const baseURL = 'https://api.bitfinex.com';
 
@@ -17,27 +17,25 @@ export function getSymbols() {
 export function getTicker(symbol) {
   return axios
     .get(`${baseURL}/v1/ticker/${symbol}`)
-    .then(response => response.data)
+    .then((response) => {
+      const { data } = response;
+      // data = data.map(ticker => mapValues(ticker, elem => (isNaN(parseFloat(elem)) ? elem : parseFloat(elem))));
+      return data;
+    })
     .catch((error) => {
       console.log(error);
       return [];
     });
 }
 
-export function getTickers(symbols) {
-  const params = {
-    symbols: [...symbols],
-  };
-
+export function getTickers() {
   return axios
-    .get(`${baseURL}/v1/tickers`, {
-      params,
-      // to process array of params
-      paramsSerializer: (p) => {
-        qs.stringify(p, { arrayFormat: 'repeat' });
-      },
+    .get(`${baseURL}/v1/tickers`)
+    .then((response) => {
+      const { data } = response;
+      // data = data.map(ticker => mapValues(ticker, elem => (isNaN(parseFloat(elem)) ? elem : parseFloat(elem))));
+      return data;
     })
-    .then(response => response.data)
     .catch((error) => {
       console.log(error);
       return [];

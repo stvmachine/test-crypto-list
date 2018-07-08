@@ -2,8 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSymbols } from '../../api';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+import { getTickers } from '../../api';
 import { loadTickers } from '../../actions';
+
+const styles = {
+  root: {
+    width: '100%',
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+};
 
 class Home extends React.Component {
   constructor() {
@@ -16,7 +34,7 @@ class Home extends React.Component {
   componentWillMount() {
     const { tickers, _loadTickers } = this.props;
     if (tickers.length === 0) {
-      getSymbols().then((incomingTickers) => {
+      getTickers().then((incomingTickers) => {
         this.setState({ tickers: incomingTickers });
         _loadTickers(incomingTickers);
       });
@@ -27,24 +45,57 @@ class Home extends React.Component {
 
   render() {
     const { tickers } = this.state;
-    return (
-      <div>
-        <h2>
-Home
-        </h2>
-        <div>
-          <ul>
+    const { classes } = this.props;
+    return tickers.length ? (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+Coin
+              </TableCell>
+              {['BID', 'MID', 'ASK', 'Last price', 'Low', 'High', 'Volume'].map(title => (
+                <TableCell numeric key={title}>
+                  {title}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {tickers.map(n => (
-              <li key={n}>
-                <Link to={`detail/${n}`}>
-                  {n}
-                </Link>
-              </li>
+              <TableRow key={n.pair}>
+                <TableCell component="th" scope="row">
+                  <Link to={`detail/${n.pair}`}>
+                    {n.pair}
+                  </Link>
+                </TableCell>
+                <TableCell numeric>
+                  {n.mid}
+                </TableCell>
+                <TableCell numeric>
+                  {n.bid}
+                </TableCell>
+                <TableCell numeric>
+                  {n.ask}
+                </TableCell>
+                <TableCell numeric>
+                  {n.last_price}
+                </TableCell>
+                <TableCell numeric>
+                  {n.low}
+                </TableCell>
+                <TableCell numeric>
+                  {n.high}
+                </TableCell>
+                <TableCell numeric>
+                  {n.volume}
+                </TableCell>
+              </TableRow>
             ))}
-          </ul>
-        </div>
-      </div>
-    );
+          </TableBody>
+        </Table>
+      </Paper>
+    ) : null;
   }
 }
 
@@ -56,12 +107,25 @@ const mapDispatchToProps = {
   _loadTickers: loadTickers,
 };
 
+const tickerPropType = PropTypes.shape({
+  mid: PropTypes.string,
+  bid: PropTypes.string,
+  ask: PropTypes.string,
+  last_price: PropTypes.string,
+  low: PropTypes.string,
+  high: PropTypes.string,
+  volume: PropTypes.string,
+  timestamp: PropTypes.string,
+  pair: PropTypes.string,
+});
+
 Home.propTypes = {
   _loadTickers: PropTypes.func.isRequired,
-  tickers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tickers: PropTypes.arrayOf(tickerPropType).isRequired,
+  classes: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(withStyles(styles)(Home));
