@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import * as Icon from 'react-cryptocoins';
+// import * as Icon from 'react-cryptocoins';
 
 import { tickerPropType } from '../../../custom_propTypes';
 
@@ -22,16 +22,12 @@ const styles = {
   },
 };
 
-function capitalizeFirstChar(input) {
-  return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-}
+// function capitalizeFirstChar(input) {
+//   return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+// }
 
 class TabContent extends React.Component {
-  renderIcon = (id) => {
-    const idIcon = capitalizeFirstChar(id);
-    const IconCoin = Icon[idIcon];
-    return IconCoin ? <IconCoin /> : <div />;
-  };
+  renderIcon = id => <span className={`cc ${id.toUpperCase()}`} style={{ fontSize: '20px' }} />;
 
   render() {
     const { classes, data } = this.props;
