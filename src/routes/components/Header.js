@@ -15,7 +15,7 @@ const Header = ({ classes }) => (
   <AppBar position="static" color="primary">
     <Toolbar>
       <Typography variant="title" color="inherit" className={classes.flex}>
-        Test Coins List
+        Crypto Currencies
       </Typography>
     </Toolbar>
   </AppBar>

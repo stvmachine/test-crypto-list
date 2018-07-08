@@ -15,6 +15,7 @@ const styles = {
   root: {
     width: '100%',
     overflowX: 'auto',
+    marginTop: '20px',
   },
   table: {
     minWidth: 700,

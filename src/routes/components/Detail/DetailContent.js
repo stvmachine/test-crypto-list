@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+import NavigateBefore from '@material-ui/icons/NavigateBefore';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import TableInfo from './TableInfo';
 import { getTicker } from '../../../api';
 
@@ -9,11 +11,18 @@ const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
   },
   icon: {
     fontSize: '34px',
-    marginRight: '10px',
+    margin: '0 10px',
+  },
+  iconGoBack: {
+    fontSize: '50px',
   },
 };
 
@@ -50,10 +59,17 @@ class DetailContent extends React.Component {
     const { classes } = this.props;
     return ticker ? (
       <div className={classes.root}>
-        <h2>
-          {this.renderIcon(ticker.icon)}
-          {idTicker}
-        </h2>
+        <div className={classes.header}>
+          <Button component={Link} to="/" classNames={classes.buttonGoBack}>
+            <NavigateBefore className={classes.iconGoBack} />
+          </Button>
+          <div>
+            {this.renderIcon(ticker.icon)}
+          </div>
+          <h2>
+            {idTicker}
+          </h2>
+        </div>
         <TableInfo data={ticker} />
       </div>
     ) : null;

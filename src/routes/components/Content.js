@@ -9,11 +9,11 @@ import Detail from './Detail';
 const styles = theme => ({
   content: {
     marginTop: theme.spacing.unit * 5,
-    marginBottom: theme.spacing.unit * 20,
+    marginBottom: theme.spacing.unit * 10,
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    padding: '0 10px',
+    padding: '0 50px',
   },
 });
 
