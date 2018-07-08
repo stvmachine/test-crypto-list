@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const tickerPropType = PropTypes.shape({
+export const tickerPropType = PropTypes.shape({
   mid: PropTypes.string,
   bid: PropTypes.string,
   ask: PropTypes.string,
@@ -12,4 +12,11 @@ const tickerPropType = PropTypes.shape({
   pair: PropTypes.string,
 });
 
-export default tickerPropType;
+export const tabsCurrencies = PropTypes.shape({
+  USD: PropTypes.arrayOf(tickerPropType),
+  EUR: PropTypes.arrayOf(tickerPropType),
+  GBP: PropTypes.arrayOf(tickerPropType),
+  JPY: PropTypes.arrayOf(tickerPropType),
+  BTC: PropTypes.arrayOf(tickerPropType),
+  ETH: PropTypes.arrayOf(tickerPropType),
+});

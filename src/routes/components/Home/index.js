@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TableInfo from './TableInfo';
+import TabsTickers from './TabsTickers';
 import { getTickers } from '../../../api';
 import { loadTickers } from '../../../actions';
 import APPCONFIG from '../../../constants/Config';
-import tickerPropType from '../../../custom_propTypes';
+import { tabsCurrencies } from '../../../custom_propTypes';
 
 class Home extends React.Component {
   constructor() {
@@ -29,10 +29,8 @@ class Home extends React.Component {
   }
 
   render() {
-    const {
-      tickers: { USD },
-    } = this.state;
-    return USD && USD.length ? <TableInfo data={USD} /> : null;
+    const { tickers } = this.state;
+    return <TabsTickers data={tickers} />;
   }
 }
 
@@ -43,15 +41,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   _loadTickers: loadTickers,
 };
-
-const tabsCurrencies = PropTypes.shape({
-  USD: PropTypes.arrayOf(tickerPropType),
-  EUR: PropTypes.arrayOf(tickerPropType),
-  GBP: PropTypes.arrayOf(tickerPropType),
-  JPY: PropTypes.arrayOf(tickerPropType),
-  BTC: PropTypes.arrayOf(tickerPropType),
-  ETH: PropTypes.arrayOf(tickerPropType),
-});
 
 Home.propTypes = {
   _loadTickers: PropTypes.func.isRequired,

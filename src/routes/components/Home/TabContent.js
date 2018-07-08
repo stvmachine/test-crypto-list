@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import tickerPropType from '../../../custom_propTypes';
+import { tickerPropType } from '../../../custom_propTypes';
 
 const styles = {
   root: {
@@ -21,7 +21,7 @@ const styles = {
   },
 };
 
-const TableInfo = ({ classes, data }) => (
+const TabContent = ({ classes, data }) => (
   <Paper className={classes.root}>
     <Table className={classes.table}>
       <TableHead>
@@ -72,9 +72,9 @@ Coin
   </Paper>
 );
 
-TableInfo.propTypes = {
+TabContent.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
   data: PropTypes.arrayOf(tickerPropType).isRequired,
 };
 
-export default withStyles(styles)(TableInfo);
+export default withStyles(styles)(TabContent);
