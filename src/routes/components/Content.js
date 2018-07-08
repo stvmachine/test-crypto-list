@@ -13,7 +13,7 @@ const styles = theme => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    padding: '0 50px',
+    padding: '0 40px',
   },
 });
 

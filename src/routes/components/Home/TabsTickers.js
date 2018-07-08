@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import TabContent from './TabContent';
+import ProgressIndicator from '../ProgressIndicator';
 import APPCONFIG from '../../../constants/Config';
 import { tabsCurrencies } from '../../../custom_propTypes';
 
@@ -26,6 +27,12 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  loading: {
+    display: 'flex',
+  },
+  tabs: {
+    backgroundColor: theme.palette.color.primary,
+  },
 });
 
 class TabsTickers extends React.Component {
@@ -44,13 +51,22 @@ class TabsTickers extends React.Component {
     return data[value] ? (
       <div className={classes.root}>
         <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange} indicatorColor="secondary">
+          <Tabs
+            className={classes.tabs}
+            indicatorColor="secondary"
+            value={value}
+            onChange={this.handleChange}
+            fullWidth
+            scrollable
+          >
             {APPCONFIG.currencies.map(n => <Tab key={n} value={n} label={n} />)}
           </Tabs>
         </AppBar>
         {<TabContent data={data[value]} />}
       </div>
-    ) : null;
+    ) : (
+      <ProgressIndicator />
+    );
   }
 }
 

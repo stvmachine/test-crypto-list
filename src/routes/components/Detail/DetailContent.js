@@ -5,6 +5,7 @@ import NavigateBefore from '@material-ui/icons/NavigateBefore';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TableInfo from './TableInfo';
+import ProgressIndicator from '../ProgressIndicator';
 import { getTicker } from '../../../api';
 
 const styles = {
@@ -57,10 +58,11 @@ class DetailContent extends React.Component {
   render() {
     const { idTicker, ticker } = this.state;
     const { classes } = this.props;
+
     return ticker ? (
       <div className={classes.root}>
         <div className={classes.header}>
-          <Button component={Link} to="/" classNames={classes.buttonGoBack}>
+          <Button component={Link} to="/">
             <NavigateBefore className={classes.iconGoBack} />
           </Button>
           <div>
@@ -72,7 +74,7 @@ class DetailContent extends React.Component {
         </div>
         <TableInfo data={ticker} />
       </div>
-    ) : null;
+    ) : <ProgressIndicator />;
   }
 }
 
