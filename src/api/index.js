@@ -17,10 +17,21 @@ export function getSymbols() {
 /* ------------------------Tickers-------------------------------------*/
 export function getTicker(symbol) {
   return axios
-    .get(`${baseURL}/v1/ticker/${symbol}`)
+    .get(`${baseURL}/v1/pubticker/${symbol}`)
     .then((response) => {
       const { data } = response;
-      return data;
+      const item = Object.assign({}, data);
+      // Apparently it's not included the param 'pair' when it's called v1/ticker
+      item.pair = symbol;
+      APPCONFIG.currencies.forEach((c) => {
+        const regexExpression = `${c}$`;
+        if (item.pair.match(regexExpression)) {
+          const regex = new RegExp(regexExpression, 'i');
+          item.icon = item.pair.replace(regex, '');
+        }
+      });
+      console.log(item);
+      return item;
     })
     .catch((error) => {
       console.log(error);
@@ -39,9 +50,9 @@ export function getTickers() {
       // The hint we have is the format of the pairs is NAME_COIN+CURRENCY e.g. (ETHUSD).
       // So we need to look for a regex that match that condition "CURRENCY$"
       APPCONFIG.currencies.forEach((c) => {
-        const value = data.filter(ticker => ticker.pair.match(`${c}$`)).map((ticker) => {
+        const regexExpression = `${c}$`;
+        const value = data.filter(ticker => ticker.pair.match(regexExpression)).map((ticker) => {
           const item = Object.assign({}, ticker);
-          const regexExpression = `${c}$`;
           const regex = new RegExp(regexExpression, 'i');
           item.icon = item.pair.replace(regex, '');
           return item;
