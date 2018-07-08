@@ -1,7 +1,7 @@
 import reducer from './fetching';
 import { LOAD_TICKERS } from '../constants/ActionTypes';
 import initialState from '../constants/Config';
-import mockSymbols from '../mocks/fetching/symbols';
+import mockTickers from '../mocks/fetching/tickers';
 
 describe('post reducer', () => {
   it('should return the initial state', () => {
@@ -9,19 +9,11 @@ describe('post reducer', () => {
     expect(reducer(undefined, {})).toEqual(fetching);
   });
 
-  it('should handle LOAD_TICKERS with empty array', () => {
-    const mockAction = {
-      type: LOAD_TICKERS,
-      tickers: [],
-    };
-    expect(reducer({}, mockAction)).toEqual({ tickers: [] });
-  });
-
   it('should handle LOAD_TICKERS with values', () => {
     const mockAction = {
       type: LOAD_TICKERS,
-      tickers: mockSymbols,
+      tickers: mockTickers,
     };
-    expect(reducer({}, mockAction)).toEqual({ tickers: mockSymbols });
+    expect(reducer({}, mockAction)).toEqual({ tickers: mockTickers });
   });
 });
