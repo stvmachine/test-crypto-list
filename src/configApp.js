@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
 import throttle from 'lodash/throttle';
 import reducers from './reducers';
-import { loadState, saveState } from './localStorage';
+import { loadState, saveState, clearState } from './localStorage';
 
 const persistedState = loadState();
 const history = createBrowserHistory();
@@ -25,6 +25,12 @@ store.subscribe(
     if (saveTickersOnLocalStorage) {
       saveState({
         fetching: store.getState().fetching,
+        config: { saveTickersOnLocalStorage: true },
+      });
+    } else {
+      clearState();
+      saveState({
+        config: { saveTickersOnLocalStorage: false },
       });
     }
   }, 1000),
