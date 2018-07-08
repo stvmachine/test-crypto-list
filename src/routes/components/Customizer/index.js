@@ -3,6 +3,7 @@ import Drawer from '@material-ui/core/Drawer';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -57,9 +58,9 @@ class Customizer extends React.Component {
     return (
       <Drawer anchor="right" open={open} onClose={handler} className={classes.drawer}>
         <div tabIndex={0} role="button" onClick={handler} onKeyDown={handler}>
-          <h2>
-Change configuration
-          </h2>
+          <Typography variant="title" color="inherit" className={classes.flex}>
+            Configuration
+          </Typography>
           <FormControl component="fieldset" className={classes.fullList}>
             <FormGroup>
               <FormControlLabel
