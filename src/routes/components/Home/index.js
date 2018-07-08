@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 
 import TabsTickers from './TabsTickers';
 import { getTickers } from '../../../api';
 import { loadTickers } from '../../../actions';
-import APPCONFIG from '../../../constants/Config';
 import { tabsCurrencies } from '../../../custom_propTypes';
+import APPCONFIG from '../../../constants/Config';
 
 class Home extends React.Component {
   state = {
@@ -15,7 +16,9 @@ class Home extends React.Component {
 
   componentWillMount() {
     const { tickers, _loadTickers } = this.props;
-    if (APPCONFIG.resetFetchedData) {
+
+    // If tickers are equal the initial empty state, then fetch
+    if (isEqual(tickers, APPCONFIG.fetching.tickers)) {
       getTickers().then((incomingTickers) => {
         this.setState({ tickers: incomingTickers });
         _loadTickers(incomingTickers);
@@ -33,6 +36,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => ({
   tickers: state.fetching.tickers ? state.fetching.tickers : [],
+  saveTickersOnLocalStorage: state.config.saveTickersOnLocalStorage || false,
 });
 
 const mapDispatchToProps = {

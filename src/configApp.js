@@ -19,9 +19,14 @@ const store = createStore(
 /* Save state changes in localStorage */
 store.subscribe(
   throttle(() => {
-    saveState({
-      fetching: store.getState().fetching,
-    });
+    const { saveTickersOnLocalStorage } = store.getState().config;
+
+    // Just save the tickers on local storage if the variable in config allows it
+    if (saveTickersOnLocalStorage) {
+      saveState({
+        fetching: store.getState().fetching,
+      });
+    }
   }, 1000),
 );
 

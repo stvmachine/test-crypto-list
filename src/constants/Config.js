@@ -9,6 +9,9 @@ const APPCONFIG = {
       ETH: [],
     },
   },
+  config: {
+    saveTickersOnLocalStorage: true,
+  },
   currencies: ['USD', 'EUR', 'GBP', 'JPY', 'BTC', 'ETH'],
 };
 
