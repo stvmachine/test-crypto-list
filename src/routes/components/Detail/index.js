@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getTicker } from '../../api';
+import { getTicker } from '../../../api';
 
 class DetailContent extends React.Component {
   constructor(props) {
