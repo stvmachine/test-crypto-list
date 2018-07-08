@@ -8,7 +8,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import * as Icon from 'react-cryptocoins';
 
 import { tickerPropType } from '../../../custom_propTypes';
 
@@ -20,14 +19,21 @@ const styles = {
   table: {
     minWidth: 700,
   },
+  icon: {
+    fontSize: '20px',
+    marginLeft: '10px',
+  },
+  rowIcon: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 };
 
-// function capitalizeFirstChar(input) {
-//   return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-// }
-
 class TabContent extends React.Component {
-  renderIcon = id => <span className={`cc ${id.toUpperCase()}`} style={{ fontSize: '20px' }} />;
+  renderIcon = (id) => {
+    const { classes } = this.props;
+    return <span className={`cc ${id.toUpperCase()} ${classes.icon}`} />;
+  };
 
   render() {
     const { classes, data } = this.props;
@@ -50,10 +56,12 @@ Coin
             {data.map(n => (
               <TableRow key={n.pair}>
                 <TableCell component="th" scope="row">
-                  {this.renderIcon(n.icon)}
-                  <Link to={`detail/${n.pair}`}>
-                    {n.pair}
-                  </Link>
+                  <div className={classes.rowIcon}>
+                    <Link to={`detail/${n.pair}`}>
+                      {n.pair}
+                    </Link>
+                    {this.renderIcon(n.icon)}
+                  </div>
                 </TableCell>
                 <TableCell numeric>
                   {n.mid}
