@@ -9,12 +9,9 @@ import APPCONFIG from '../../../constants/Config';
 import { tabsCurrencies } from '../../../custom_propTypes';
 
 class Home extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      tickers: {},
-    };
-  }
+  state = {
+    tickers: {},
+  };
 
   componentWillMount() {
     const { tickers, _loadTickers } = this.props;

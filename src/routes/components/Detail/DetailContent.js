@@ -1,0 +1,73 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
+import TableInfo from './TableInfo';
+import { getTicker } from '../../../api';
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  icon: {
+    fontSize: '34px',
+    marginRight: '10px',
+  },
+};
+
+class DetailContent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    this.state = {
+      ticker: null,
+      idTicker: id,
+    };
+  }
+
+  componentWillMount() {
+    const { idTicker } = this.state;
+    getTicker(idTicker).then((ticker) => {
+      this.setState({ ticker });
+    });
+  }
+
+  renderIcon = (id) => {
+    const { classes } = this.props;
+    return <span className={`cc ${id.toUpperCase()} ${classes.icon}`} />;
+  };
+
+  render() {
+    const { idTicker, ticker } = this.state;
+    const { classes } = this.props;
+    return ticker ? (
+      <div className={classes.root}>
+        <h2>
+          {this.renderIcon(ticker.icon)}
+          {idTicker}
+        </h2>
+        <TableInfo data={ticker} />
+      </div>
+    ) : null;
+  }
+}
+
+DetailContent.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string,
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  classes: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
+};
+
+export default withStyles(styles)(DetailContent);
