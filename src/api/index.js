@@ -30,10 +30,10 @@ export function getTicker(symbol) {
           item.icon = item.pair.replace(regex, '');
         }
       });
-      console.log(item);
       return item;
     })
     .catch((error) => {
+      // eslint-disable-next-line no-console
       console.log(error);
       return [];
     });
@@ -63,6 +63,7 @@ export function getTickers() {
       return output;
     })
     .catch((error) => {
+      // eslint-disable-next-line no-console
       console.log(error);
       return [];
     });

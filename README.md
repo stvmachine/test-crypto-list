@@ -24,13 +24,12 @@ brew install watchman
 yarn test
 ```
 
-
 ### Some problems I have:
 1. react-router (v4) 
 This is the latest version of react-router and well is different. The routes are no more static and the routing is created when the app is rendering. Well, is easier than before but I got problems at the beginning when I tried to connect with redux. 
  
 2. API v2 of Bitfinex still on beta
-The endpoint *https://api.bitfinex.com/v1/symbols* works correctly. But the v2 does not have a service for symbols (e.g.: v2/symbols) and the only way to get the tickers is requesting using the **specific symbols**. So, there is no way to obtain this symbols and the symbols used on v1 are incompatible with the new version, so for the moment, it is only possible to use the old service, although the other option offers more interesting data. [READ MORE](https://github.com/bitfinexcom/bitfinex-api-node/issues/85).
+The endpoint *https://api.bitfinex.com/v1/symbols* works correctly. But the v2 doesn't have a service for symbols, on the other hand to get the tickers is necessary to use **specific symbols**. So, there is no way to obtain the needed symbols and the results from v1 are incompatible with the new version, so for the moment, it is only possible to use the old service, although the other option offers more interesting data. [READ MORE](https://github.com/bitfinexcom/bitfinex-api-node/issues/85).
 
 3. The API doesn't group the tickers for currency, so the client has to do it. 
 
@@ -42,8 +41,7 @@ The endpoint *https://api.bitfinex.com/v1/symbols* works correctly. But the v2 d
 ![Detail](/screenshots/2.png?raw=true)
 
 
-
-##Guides used:
+## Guides used:
 1. For type checking with propTypes: 
     - https://reactjs.org/docs/typechecking-with-proptypes.html
 2. For run tests on create-react-app: 
