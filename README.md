@@ -24,15 +24,18 @@ brew install watchman
 yarn test
 ```
 
-### Some problems I have:
+### Some problems I had and comments:
 1. react-router (v4) 
 This is the latest version of react-router and well is different. The routes are no more static and the routing is created when the app is rendering. Well, is easier than before but I got problems at the beginning when I tried to connect with redux. 
  
 2. API v2 of Bitfinex still on beta
 The endpoint *https://api.bitfinex.com/v1/symbols* works correctly. But the v2 doesn't have a service for symbols, on the other hand to get the tickers is necessary to use **specific symbols**. So, there is no way to obtain the needed symbols and the results from v1 are incompatible with the new version, so for the moment, it is only possible to use the old service, although the other option offers more interesting data. [READ MORE](https://github.com/bitfinexcom/bitfinex-api-node/issues/85).
 
-3. The API doesn't group the tickers for currency, so the client has to do it. 
+3. The API does not group the ticker by currency, so the client has to do it.
 
+4. I implemented methods to save the state of redux in the local storage. At the moment, by default try to save only the tickers. Check the 'localStorage.js' and 'configApp.js'. The type of action to save/not save to local storage is called CHANGE_SAVE_TICKERS.
+
+5. Try using the console, in this way you can see the records that redux-logger does.
 
 ## Screenshots
 
