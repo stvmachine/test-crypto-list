@@ -25,16 +25,14 @@ const Footer = ({ classes }) => (
   <div className={classes.footer}>
     <div>
       Made with
-      {' '}
       <span className={classes.heart}>
+        {' '}
 ❤
         {' '}
       </span>
-      {' '}
-in Melbourne
+      in Melbourne
     </div>
     <span>
-      {' '}
 © 2018 All rights reserved
     </span>
   </div>

@@ -44,7 +44,7 @@ class TabsTickers extends React.Component {
     return data[value] ? (
       <div className={classes.root}>
         <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
+          <Tabs value={value} onChange={this.handleChange} indicatorColor="secondary">
             {APPCONFIG.currencies.map(n => <Tab key={n} value={n} label={n} />)}
           </Tabs>
         </AppBar>

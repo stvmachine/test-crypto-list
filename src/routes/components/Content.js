@@ -8,7 +8,7 @@ import Detail from './Detail';
 
 const styles = theme => ({
   content: {
-    marginTop: theme.spacing.unit * 20,
+    marginTop: theme.spacing.unit * 5,
     marginBottom: theme.spacing.unit * 20,
     flex: 1,
     display: 'flex',
