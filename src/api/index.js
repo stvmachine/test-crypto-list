@@ -20,7 +20,6 @@ export function getTicker(symbol) {
     .get(`${baseURL}/v1/ticker/${symbol}`)
     .then((response) => {
       const { data } = response;
-      // data = data.map(ticker => mapValues(ticker, elem => (isNaN(parseFloat(elem)) ? elem : parseFloat(elem))));
       return data;
     })
     .catch((error) => {
@@ -40,7 +39,13 @@ export function getTickers() {
       // The hint we have is the format of the pairs is NAME_COIN+CURRENCY e.g. (ETHUSD).
       // So we need to look for a regex that match that condition "CURRENCY$"
       APPCONFIG.currencies.forEach((c) => {
-        const value = data.filter(ticker => ticker.pair.match(`${c}$`));
+        const value = data.filter(ticker => ticker.pair.match(`${c}$`)).map((ticker) => {
+          const item = Object.assign({}, ticker);
+          const regexExpression = `${c}$`;
+          const regex = new RegExp(regexExpression, 'i');
+          item.icon = item.pair.replace(regex, '');
+          return item;
+        });
         output[c] = value;
       });
 

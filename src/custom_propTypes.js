@@ -10,6 +10,7 @@ export const tickerPropType = PropTypes.shape({
   volume: PropTypes.string,
   timestamp: PropTypes.string,
   pair: PropTypes.string,
+  icon: PropTypes.string,
 });
 
 export const tabsCurrencies = PropTypes.shape({
