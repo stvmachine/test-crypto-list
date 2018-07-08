@@ -7,4 +7,7 @@ module.exports = {
     document: 1,
     window: true,
   },
+  env: {
+    jest: true,
+  },
 };
